@@ -4,33 +4,26 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- My theme -->
-    <!-- Layouts -->
-    <color name="background">#050811</color>
-    <color name="surfaces">#0B1020</color>
-    <color name="surfaces_variant">#141A30</color>
+    <!-- Light theme overrides -->
+    <color name="background">#FAFBFD</color>
+    <color name="surfaces">#FFFFFF</color>
+    <color name="surfaces_variant">#F1F5F9</color>
 
-    <!-- Text -->
-    <color name="text">#E5E7EB</color>
-    <color name="description_text">#9CA3AF</color>
-    <color name="disabled">#6B7280</color>
-    <color name="borders">#1F2933</color>
-    <color name="success_text">#4ADE80</color>
-    <color name="error_text">#F87171</color>
-    <color name="warning_text">#FBBF24</color>
+    <color name="text">#020617</color>
+    <color name="description_text">#475467</color>
+    <color name="disabled">#9CA3AF</color>
+    <color name="borders">#E2E8F0</color>
 
-    <!-- Buttons -->
     <color name="primary">#22D3EE</color>
-    <color name="on_primary">#020617</color>
-    <color name="primary_container">#083344</color>
-    <color name="on_primary_container">#E0F2FE</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="primary_container">#E0F2FE</color>
+    <color name="on_primary_container">#020617</color>
     <color name="secondary">#818CF8</color>
-    <color name="on_secondary">#020617</color>
+    <color name="on_secondary">#FFFFFF</color>
 
-    <!-- Alerts -->
     <color name="success">#22C55E</color>
-    <color name="success_container">#064E3B</color>
+    <color name="success_container">#E0F9E6</color>
     <color name="error">#F97373</color>
-    <color name="on_error">#020617</color>
-    <color name="error_container">#7F1D1D</color>
+    <color name="on_error">#FFFFFF</color>
+    <color name="error_container">#FEE2E2</color>
 </resources>

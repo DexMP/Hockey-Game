@@ -26,4 +26,13 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="bot_nav_team">Команда</string>
+    <string name="bot_nav_cup">Турниры</string>
+    <string name="bot_nav_club">Клуб</string>
+    <string name="mail">Почта</string>
+    <string name="password">Пароль</string>
+    <string name="sing_in">Войти</string>
+    <string name="registration_change">Регистрация</string>
+    <string name="nickname">Ник/Имя</string>
+    <string name="phone">Телефон</string>
 </resources>

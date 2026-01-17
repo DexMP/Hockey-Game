@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bot_nav_team"
+        android:icon="@drawable/team"
+        android:title="@string/bot_nav_team" />
+    <item
+        android:id="@+id/bot_nav_tournaments"
+        android:icon="@drawable/cup"
+        android:title="@string/bot_nav_cup" />
+    <item
+        android:id="@+id/bot_nav_club"
+        android:icon="@drawable/club"
+        android:title="@string/bot_nav_club" />
+</menu>
