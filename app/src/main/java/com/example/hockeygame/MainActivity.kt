@@ -1,13 +1,17 @@
 package com.example.hockeygame
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.hockeygame.ui.TeamFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 
 class MainActivity : AppCompatActivity() {
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -17,18 +21,24 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        NavigationBarView.OnItemSelectedListener { item ->
-            when(item.itemId) {
+
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
+
+        // Загружаем первый фрагмент при запуске
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.main_container, TeamFragment())
+                .commit()
+        }
+
+        // Обработка кликов на bottom navigation
+        bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
                 R.id.bot_nav_team -> {
-                    // Respond to navigation item 1 click
-                    true
-                }
-                R.id.bot_nav_tournaments -> {
-                    // Respond to navigation item 2 click
-                    true
-                }
-                R.id.bot_nav_club -> {
-                    // Respond to navigation item 2 click
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_container, TeamFragment())
+                        .addToBackStack(null)
+                        .commit()
                     true
                 }
                 else -> false
