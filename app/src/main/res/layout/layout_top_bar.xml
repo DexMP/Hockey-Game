@@ -6,7 +6,7 @@
     android:id="@+id/top_bar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="?attr/colorPrimary"
+    android:background="@color/primary_container"
     android:paddingHorizontal="16dp">
 
     <!-- Аватар (слева) -->
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:text="Username"
-        android:textColor="@android:color/white"
+        android:textColor="@color/description_text"
         android:textStyle="bold"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -62,8 +62,8 @@
             android:id="@+id/top_bar_dollars"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1 500 $"
-            android:textColor="@android:color/white"
+            android:text="1 500 💵"
+            android:textColor="@color/description_text"
             android:textStyle="bold"
             android:layout_margin="8dp"
             android:textSize="14sp" />
@@ -72,8 +72,8 @@
             android:id="@+id/top_bar_gems"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3 @"
-            android:textColor="@android:color/white"
+            android:text="3 💎"
+            android:textColor="@color/description_text"
             android:textStyle="bold"
             android:layout_margin="8dp"
             android:textSize="14sp" />

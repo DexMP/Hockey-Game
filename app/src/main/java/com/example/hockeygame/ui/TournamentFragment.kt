@@ -33,8 +33,9 @@ class TournamentFragment : Fragment() {
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = when (position) {
                 0 -> "Товарищеские"
-                1 -> "ВХЛ"
-                2 -> "НХЛ"
+                1 -> "Региональные"
+                2 -> "ВХЛ"
+                3 -> "НХЛ"
                 else -> ""
             }
         }.attach()
