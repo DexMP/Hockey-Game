@@ -1,11 +1,11 @@
-package com.example.hockeygame.ui.team.adapters
+package com.example.hockeygame.ui.tournament.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.hockeygame.ui.team.tabs.TeamLineupFragment
 import com.example.hockeygame.ui.team.tabs.TeamStatsFragment
 
-class TeamPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
+class TournamentPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int = 3  // ✅ Изменено с 2 на 3
 

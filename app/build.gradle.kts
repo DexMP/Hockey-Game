@@ -41,10 +41,10 @@ android {
 }
 
 dependencies {
-    // appwrite
-    implementation(libs.appwrite)
     // splashscreen
     implementation(libs.androidx.core.splashscreen)
+    // pocketbase
+    implementation(libs.pocketbase.kotlin)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

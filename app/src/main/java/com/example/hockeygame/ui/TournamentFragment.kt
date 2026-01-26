@@ -7,18 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager2.widget.ViewPager2
 import com.example.hockeygame.R
-import com.example.hockeygame.ui.team.adapters.TeamPagerAdapter
+import com.example.hockeygame.ui.tournament.adapters.TournamentPagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-class TeamFragment : Fragment() {
+class TournamentFragment : Fragment() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_team, container, false)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -27,7 +23,7 @@ class TeamFragment : Fragment() {
         val tabLayout = view.findViewById<TabLayout>(R.id.team_tabs)
         val viewPager = view.findViewById<ViewPager2>(R.id.team_viewpager)
 
-        val adapter = TeamPagerAdapter(this)
+        val adapter = TournamentPagerAdapter(this)
         viewPager.adapter = adapter
 
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->

@@ -8,7 +8,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.hockeygame.ui.TeamFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationBarView
 
 class MainActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -31,16 +30,30 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
-        // Обработка кликов на bottom navigation
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.bot_nav_team -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.main_container, TeamFragment())
-                        .addToBackStack(null)
+                        // ✅ Убрал addToBackStack, чтобы избежать накопления фрагментов
                         .commit()
                     true
                 }
+                R.id.bot_nav_tournaments -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_container, TeamFragment())
+                        // ✅ Убрал addToBackStack, чтобы избежать накопления фрагментов
+                        .commit()
+                    true
+                }
+                R.id.bot_nav_club -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_container, TeamFragment())
+                        // ✅ Убрал addToBackStack, чтобы избежать накопления фрагментов
+                        .commit()
+                    true
+                }
+                // ✅ Добавь сюда другие пункты меню, когда создашь их фрагменты
                 else -> false
             }
         }
