@@ -6,7 +6,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.hockeygame.ui.ClubFragment
 import com.example.hockeygame.ui.TeamFragment
+import com.example.hockeygame.ui.TournamentFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -23,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
 
-        // Загружаем первый фрагмент при запуске
+        // Фрагмент при запуске
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.main_container, TeamFragment())
@@ -35,25 +37,21 @@ class MainActivity : AppCompatActivity() {
                 R.id.bot_nav_team -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.main_container, TeamFragment())
-                        // ✅ Убрал addToBackStack, чтобы избежать накопления фрагментов
                         .commit()
                     true
                 }
                 R.id.bot_nav_tournaments -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_container, TeamFragment())
-                        // ✅ Убрал addToBackStack, чтобы избежать накопления фрагментов
+                        .replace(R.id.main_container, TournamentFragment())
                         .commit()
                     true
                 }
                 R.id.bot_nav_club -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_container, TeamFragment())
-                        // ✅ Убрал addToBackStack, чтобы избежать накопления фрагментов
+                        .replace(R.id.main_container, ClubFragment())
                         .commit()
                     true
                 }
-                // ✅ Добавь сюда другие пункты меню, когда создашь их фрагменты
                 else -> false
             }
         }

@@ -5,18 +5,19 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".ui.TournamentFragment">
+    tools:context=".ui.ClubFragment">
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tournaments_tabs"
+        android:id="@+id/club_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabMode="scrollable" />
+        app:tabMode="fixed"
+        app:tabGravity="fill" />
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/tournaments_viewpager"
+        android:id="@+id/club_viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
 </LinearLayout>

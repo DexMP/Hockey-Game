@@ -7,13 +7,12 @@ import com.example.hockeygame.ui.team.tabs.TeamStatsFragment
 
 class TeamPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
-    override fun getItemCount(): Int = 3  // ✅ Изменено с 2 на 3
+    override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> TeamLineupFragment()      // Состав
             1 -> TeamStatsFragment()       // Статистика команды
-            2 -> Fragment()                // ✅ Добавлен третий фрагмент (пока пустой)
             else -> Fragment()
         }
     }

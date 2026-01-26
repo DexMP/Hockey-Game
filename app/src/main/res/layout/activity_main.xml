@@ -6,7 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!-- Контейнер для фрагментов (занимает всё свободное место) -->
+    <!-- Навбар -->
+    <include
+        android:id="@+id/layout_top_bar"
+        layout="@layout/layout_top_bar" />
+
+    <!-- Контейнер для фрагментов -->
     <FrameLayout
         android:id="@+id/main_container"
         android:layout_width="match_parent"
@@ -14,7 +19,7 @@
         android:layout_weight="1"
         android:background="@color/background" />
 
-    <!-- Bottom Navigation (внизу, фиксированная высота) -->
+    <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"

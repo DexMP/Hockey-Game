@@ -3,20 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".ui.TournamentFragment">
+    android:padding="16dp"
+    tools:context=".ui.tournament.tabs.UnrankedFragment">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tournaments_tabs"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabMode="scrollable" />
+        android:gravity="center"
+        android:text="Товарищеские матчи"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/tournaments_viewpager"
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp" />
 
 </LinearLayout>
