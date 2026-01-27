@@ -114,7 +114,7 @@ class AuthActivity : AppCompatActivity() {
                 val jsonBody = kotlinx.serialization.json.Json.encodeToString(userData)
 
                 // Создание нового пользователя через records.create
-                val newUser = pbClient.records.create<User>("users", jsonBody)
+                pbClient.records.create<User>("users", jsonBody)
 
                 // Автоматический вход после регистрации
                 pbClient.login {

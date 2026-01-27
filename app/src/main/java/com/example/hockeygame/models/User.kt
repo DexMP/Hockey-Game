@@ -1,7 +1,9 @@
 package com.example.hockeygame.models
 
 import io.github.agrevster.pocketbaseKotlin.models.utils.BaseModel
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class User(
     override val id: String = "",
     val email: String = "",

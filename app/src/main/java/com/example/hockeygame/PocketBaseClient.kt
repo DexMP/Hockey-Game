@@ -6,7 +6,7 @@ import io.ktor.http.URLProtocol
 object PocketBaseClient {
     val client = PocketbaseClient({
         protocol = URLProtocol.HTTP
-        host = "10.0.2.2"
+        host = "localhost"
         port = 8090
     })
 
