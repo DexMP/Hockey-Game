@@ -1,7 +1,10 @@
 package com.example.hockeygame
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -12,7 +15,7 @@ import com.example.hockeygame.ui.TournamentFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint("MissingInflatedId", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -24,6 +27,24 @@ class MainActivity : AppCompatActivity() {
         }
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
+        val avatar = findViewById<ImageView>(R.id.top_bar_avatar)
+        val usernameText = findViewById<TextView>(R.id.top_bar_username)
+        val dollarsText = findViewById<TextView>(R.id.top_bar_dollars)
+        val gemsText = findViewById<TextView>(R.id.top_bar_gems)
+
+        usernameText.text = "DexMP"
+        dollarsText.text = "2001"
+        gemsText.text = "5"
+
+        avatar.setOnClickListener {
+            val personIntent = Intent(this, PersonalActivity::class.java)
+            startActivity(personIntent)
+        }
+
+        usernameText.setOnClickListener {
+            val personIntent = Intent(this, PersonalActivity::class.java)
+            startActivity(personIntent)
+        }
 
         // Фрагмент при запуске
         if (savedInstanceState == null) {

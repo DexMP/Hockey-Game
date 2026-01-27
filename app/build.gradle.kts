@@ -45,10 +45,16 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     // pocketbase
     implementation(libs.pocketbase.kotlin)
+    // coroutines
+    implementation(libs.kotlinx.coroutines.android)
+    // JSON
+    implementation(libs.kotlinx.serialization.json)
+    // Material design
+    implementation(libs.material)
 
+    // android
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.annotation)

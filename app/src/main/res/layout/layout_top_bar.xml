@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/iv_avatar"
+            android:id="@+id/top_bar_avatar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
@@ -34,7 +34,7 @@
 
     <!-- Имя пользователя (рядом с аватаром) -->
     <TextView
-        android:id="@+id/tv_username"
+        android:id="@+id/top_bar_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
