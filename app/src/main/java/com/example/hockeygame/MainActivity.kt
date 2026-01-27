@@ -13,6 +13,9 @@ import com.example.hockeygame.ui.ClubFragment
 import com.example.hockeygame.ui.TeamFragment
 import com.example.hockeygame.ui.TournamentFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.serialization.builtins.serializer
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.decodeFromString
 
 class MainActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId", "SetTextI18n")
@@ -25,6 +28,8 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        println(com.example.hockeygame.models.User.serializer())
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
         val avatar = findViewById<ImageView>(R.id.top_bar_avatar)
