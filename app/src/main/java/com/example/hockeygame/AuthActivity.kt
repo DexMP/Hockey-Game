@@ -11,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import com.example.hockeygame.PocketBaseClient.client
 import com.example.hockeygame.databinding.ActivityAuthBinding
 import com.example.hockeygame.models.User
-import io.github.agrevster.pocketbaseKotlin.dsl.login
 import io.github.agrevster.pocketbaseKotlin.models.AuthRecord
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,7 +18,6 @@ import kotlinx.coroutines.withContext
 
 class AuthActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthBinding
-    private val pbClient = client
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,12 +32,10 @@ class AuthActivity : AppCompatActivity() {
             insets
         }
 
-        // Временный переход при отключенном сервере
         binding.btnNext.setOnClickListener {
             navigateToMain()
         }
 
-        // Проверка на уже авторизованного пользователя
         if (PocketBaseClient.isAuthenticated()) {
             navigateToMain()
             return
@@ -49,9 +45,8 @@ class AuthActivity : AppCompatActivity() {
     }
 
     private fun setupListeners() {
-        // Кнопка входа
         binding.btnLogin.setOnClickListener {
-            val email = binding.etEmail.text.toString().trim()
+            val email = binding.etEmail.text.toString().trim().lowercase()
             val password = binding.etPassword.text.toString().trim()
 
             if (validateInput(email, password)) {
@@ -59,9 +54,8 @@ class AuthActivity : AppCompatActivity() {
             }
         }
 
-        // Кнопка регистрации
         binding.btnRegister.setOnClickListener {
-            val email = binding.etEmail.text.toString().trim()
+            val email = binding.etEmail.text.toString().trim().lowercase()
             val password = binding.etPassword.text.toString().trim()
             val username = binding.etUsername.text.toString().trim()
 
@@ -76,27 +70,24 @@ class AuthActivity : AppCompatActivity() {
 
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                pbClient.login {
-                    token = client.records.authWithPassword<AuthRecord>("users", email, password).token
-                }
+                // Выполняем вход и получаем результат
+                val authData = client.records.authWithPassword<AuthRecord>("users", email, password)
+                
+                // ВАЖНО: Вручную сохраняем токен в authStore клиента
+                client.authStore.save(authData.token)
+                
+                // Теперь сохраняем сессию в SharedPreferences
+                PocketBaseClient.saveSession()
 
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(
-                        this@AuthActivity,
-                        "Вход выполнен успешно!",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(this@AuthActivity, "Вход выполнен успешно!", Toast.LENGTH_SHORT).show()
                     navigateToMain()
                 }
 
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     binding.btnLogin.isEnabled = true
-                    Toast.makeText(
-                        this@AuthActivity,
-                        "Ошибка входа: ${e.message}",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    Toast.makeText(this@AuthActivity, "Ошибка входа: ${e.message}", Toast.LENGTH_LONG).show()
                 }
             }
         }
@@ -107,7 +98,6 @@ class AuthActivity : AppCompatActivity() {
 
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                // Создаём Map с данными
                 val userData = mapOf(
                     "email" to email,
                     "password" to password,
@@ -115,39 +105,30 @@ class AuthActivity : AppCompatActivity() {
                     "username" to username
                 )
 
-                // Сериализуем в JSON строку
                 val jsonBody = kotlinx.serialization.json.Json.encodeToString(userData)
+                client.records.create<User>("users", jsonBody)
 
-                // Создание нового пользователя через records.create
-                pbClient.records.create<User>("users", jsonBody)
+                // После регистрации выполняем вход
+                val authData = client.records.authWithPassword<AuthRecord>("users", email, password)
+                
+                // Вручную сохраняем токен
+                client.authStore.save(authData.token)
 
-                // Автоматический вход после регистрации
-                pbClient.login {
-                    token = client.records.authWithPassword<AuthRecord>("users", email, password).token
-                }
+                PocketBaseClient.saveSession()
 
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(
-                        this@AuthActivity,
-                        "Регистрация успешна!",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(this@AuthActivity, "Регистрация успешна!", Toast.LENGTH_SHORT).show()
                     navigateToMain()
                 }
 
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     binding.btnRegister.isEnabled = true
-                    Toast.makeText(
-                        this@AuthActivity,
-                        "Ошибка регистрации: ${e.message}",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    Toast.makeText(this@AuthActivity, "Ошибка регистрации: ${e.message}", Toast.LENGTH_LONG).show()
                 }
             }
         }
     }
-
 
     private fun validateInput(email: String, password: String): Boolean {
         if (email.isEmpty()) {
@@ -158,22 +139,13 @@ class AuthActivity : AppCompatActivity() {
             binding.etPassword.error = "Введите пароль"
             return false
         }
-        if (password.length < 8) {
-            binding.etPassword.error = "Пароль должен быть минимум 8 символов"
-            return false
-        }
         return true
     }
 
     private fun validateRegistration(email: String, password: String, username: String): Boolean {
         if (!validateInput(email, password)) return false
-
         if (username.isEmpty()) {
             binding.etUsername.error = "Введите имя пользователя"
-            return false
-        }
-        if (username.length < 3) {
-            binding.etUsername.error = "Имя должно быть минимум 3 символа"
             return false
         }
         return true

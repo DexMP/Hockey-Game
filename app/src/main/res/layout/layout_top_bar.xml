@@ -58,25 +58,57 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/top_bar_dollars"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1 500 💵"
-            android:textColor="@color/description_text"
-            android:textStyle="bold"
             android:layout_margin="8dp"
-            android:textSize="14sp" />
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
 
-        <TextView
-            android:id="@+id/top_bar_gems"
+            <TextView
+                android:id="@+id/top_bar_dollars"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1 500"
+                android:textColor="@color/description_text"
+                android:textStyle="bold"
+                android:layout_margin="4dp"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="4dp"
+                android:contentDescription="@string/cash"
+                android:src="@drawable/cash"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3 💎"
-            android:textColor="@color/description_text"
-            android:textStyle="bold"
             android:layout_margin="8dp"
-            android:textSize="14sp" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/top_bar_gems"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:textColor="@color/description_text"
+                android:textStyle="bold"
+                android:layout_margin="4dp"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="4dp"
+                android:contentDescription="@string/diamond"
+                android:src="@drawable/diamond"/>
+
+
+        </LinearLayout>
 
     </LinearLayout>
 

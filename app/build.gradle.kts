@@ -58,6 +58,8 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     // Material design
     implementation(libs.material)
+    // Encrypted SharedPreferences
+    implementation(libs.androidx.security.crypto)
 
     // android
     implementation(libs.androidx.core.ktx)
