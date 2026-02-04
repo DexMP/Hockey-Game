@@ -10,6 +10,10 @@ import io.ktor.http.URLProtocol
 
 object PocketBaseClient {
     private const val TAG = "PocketBaseClient"
+    
+    // Используй 127.0.0.1 если делаешь adb reverse
+    // Или IP компьютера (например 192.168.1.X) если через Wi-Fi
+    const val BASE_URL = "http://127.0.0.1:8090"
 
     val client = PocketbaseClient({
         protocol = URLProtocol.HTTP
@@ -34,42 +38,39 @@ object PocketBaseClient {
             )
 
             restoreSession()
-            Log.d(TAG, "Инициализация завершена успешно")
         } catch (e: Exception) {
             Log.e(TAG, "Ошибка инициализации: ${e.message}")
         }
     }
 
-    fun saveSession() {
+    fun saveSession(userId: String? = null) {
         val token = client.authStore.token
-        Log.d(TAG, "Сохранение сессии. Токен найден: ${!token.isNullOrEmpty()}")
-        
         if (!token.isNullOrEmpty()) {
-            prefs.edit()
-                .putString("pb_token", token)
-                .apply()
+            val editor = prefs.edit().putString("pb_token", token)
+            if (userId != null) {
+                editor.putString("pb_user_id", userId)
+            }
+            editor.apply()
         }
     }
 
     private fun restoreSession() {
         val savedToken = prefs.getString("pb_token", null)
-        Log.d(TAG, "Восстановление сессии. Токен в SharedPreferences: ${if (savedToken != null) "найден" else "пусто"}")
-        
         if (!savedToken.isNullOrEmpty()) {
             client.authStore.save(savedToken)
         }
     }
 
+    fun getUserId(): String? {
+        return prefs.getString("pb_user_id", null)
+    }
+
     fun logout() {
-        Log.d(TAG, "Выход из системы")
         client.authStore.clear()
-        prefs.edit().remove("pb_token").apply()
+        prefs.edit().clear().apply()
     }
 
     fun isAuthenticated(): Boolean {
-        val token = client.authStore.token
-        val isAuth = !token.isNullOrEmpty()
-        Log.d(TAG, "Проверка isAuthenticated: $isAuth (token length: ${token?.length ?: 0})")
-        return isAuth
+        return !client.authStore.token.isNullOrEmpty()
     }
 }

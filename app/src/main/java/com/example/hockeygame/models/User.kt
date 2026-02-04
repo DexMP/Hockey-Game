@@ -7,11 +7,11 @@ import kotlinx.serialization.Serializable
 data class User(
     val email: String = "",
     val username: String = "",
-    val password: String = "",
     val verified: Boolean = false,
     val dollars: Int = 0,
     val gems: Int = 0,
     val hockeyPass: Boolean = false,
+    val avatar: String = "", // Добавили поле аватарки
     val created: String = "",
     val updated: String = ""
 ) : BaseModel()

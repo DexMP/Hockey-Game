@@ -60,6 +60,10 @@ dependencies {
     implementation(libs.material)
     // Encrypted SharedPreferences
     implementation(libs.androidx.security.crypto)
+    // Coil
+    implementation(libs.coil.compose)
+    // okhttp
+    implementation(libs.coil.network.okhttp)
 
     // android
     implementation(libs.androidx.core.ktx)

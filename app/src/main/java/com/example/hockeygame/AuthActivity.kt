@@ -2,6 +2,7 @@ package com.example.hockeygame
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +19,7 @@ import kotlinx.coroutines.withContext
 
 class AuthActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthBinding
+    private var isLoginMode = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,69 +34,79 @@ class AuthActivity : AppCompatActivity() {
             insets
         }
 
-        binding.btnNext.setOnClickListener {
-            navigateToMain()
-        }
-
         if (PocketBaseClient.isAuthenticated()) {
             navigateToMain()
             return
         }
 
         setupListeners()
+        updateUI()
     }
 
     private fun setupListeners() {
-        binding.btnLogin.setOnClickListener {
+        binding.btnMainAction.setOnClickListener {
             val email = binding.etEmail.text.toString().trim().lowercase()
             val password = binding.etPassword.text.toString().trim()
 
-            if (validateInput(email, password)) {
-                login(email, password)
+            if (isLoginMode) {
+                if (validateInput(email, password)) {
+                    login(email, password)
+                }
+            } else {
+                val username = binding.etUsername.text.toString().trim()
+                if (validateRegistration(email, password, username)) {
+                    register(email, password, username)
+                }
             }
         }
 
-        binding.btnRegister.setOnClickListener {
-            val email = binding.etEmail.text.toString().trim().lowercase()
-            val password = binding.etPassword.text.toString().trim()
-            val username = binding.etUsername.text.toString().trim()
+        binding.btnToggleMode.setOnClickListener {
+            isLoginMode = !isLoginMode
+            updateUI()
+        }
 
-            if (validateRegistration(email, password, username)) {
-                register(email, password, username)
-            }
+        binding.btnNext.setOnClickListener {
+            navigateToMain()
+        }
+    }
+
+    private fun updateUI() {
+        if (isLoginMode) {
+            binding.tilUsername.visibility = View.GONE
+            binding.btnMainAction.text = "Войти"
+            binding.btnToggleMode.text = "Нет аккаунта? Зарегистрироваться"
+        } else {
+            binding.tilUsername.visibility = View.VISIBLE
+            binding.btnMainAction.text = "Создать аккаунт"
+            binding.btnToggleMode.text = "Уже есть аккаунт? Войти"
         }
     }
 
     private fun login(email: String, password: String) {
-        binding.btnLogin.isEnabled = false
+        binding.btnMainAction.isEnabled = false
 
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                // Выполняем вход и получаем результат
                 val authData = client.records.authWithPassword<AuthRecord>("users", email, password)
-                
-                // ВАЖНО: Вручную сохраняем токен в authStore клиента
                 client.authStore.save(authData.token)
                 
-                // Теперь сохраняем сессию в SharedPreferences
-                PocketBaseClient.saveSession()
+                // Сохраняем ID пользователя для дальнейших запросов
+                PocketBaseClient.saveSession(authData.record.id)
 
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(this@AuthActivity, "Вход выполнен успешно!", Toast.LENGTH_SHORT).show()
                     navigateToMain()
                 }
-
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    binding.btnLogin.isEnabled = true
-                    Toast.makeText(this@AuthActivity, "Ошибка входа: ${e.message}", Toast.LENGTH_LONG).show()
+                    binding.btnMainAction.isEnabled = true
+                    Toast.makeText(this@AuthActivity, "Ошибка: ${e.message}", Toast.LENGTH_LONG).show()
                 }
             }
         }
     }
 
     private fun register(email: String, password: String, username: String) {
-        binding.btnRegister.isEnabled = false
+        binding.btnMainAction.isEnabled = false
 
         lifecycleScope.launch(Dispatchers.IO) {
             try {
@@ -108,23 +120,19 @@ class AuthActivity : AppCompatActivity() {
                 val jsonBody = kotlinx.serialization.json.Json.encodeToString(userData)
                 client.records.create<User>("users", jsonBody)
 
-                // После регистрации выполняем вход
                 val authData = client.records.authWithPassword<AuthRecord>("users", email, password)
-                
-                // Вручную сохраняем токен
                 client.authStore.save(authData.token)
-
-                PocketBaseClient.saveSession()
+                
+                // Сохраняем ID после регистрации
+                PocketBaseClient.saveSession(authData.record.id)
 
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(this@AuthActivity, "Регистрация успешна!", Toast.LENGTH_SHORT).show()
                     navigateToMain()
                 }
-
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    binding.btnRegister.isEnabled = true
-                    Toast.makeText(this@AuthActivity, "Ошибка регистрации: ${e.message}", Toast.LENGTH_LONG).show()
+                    binding.btnMainAction.isEnabled = true
+                    Toast.makeText(this@AuthActivity, "Ошибка: ${e.message}", Toast.LENGTH_LONG).show()
                 }
             }
         }

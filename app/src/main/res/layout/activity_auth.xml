@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:padding="16dp"
     tools:context=".AuthActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:text="Hockey Game"
-        android:layout_marginBottom="36dp"
-        android:textSize="32sp"
-        android:textStyle="bold"/>
+        android:layout_marginBottom="48dp"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary"/>
 
+    <!-- Username (скрыт по умолчанию для входа) -->
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="12dp">
+        android:layout_marginBottom="12dp"
+        android:visibility="gone"> <!-- Иконку можно заменить на ic_person если есть -->
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_username"
@@ -50,12 +55,14 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- Password -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="12dp">
+        android:layout_marginBottom="12dp"
+        app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_password"
@@ -67,31 +74,31 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_login"
+        android:id="@+id/btn_main_action"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="12dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="12dp"
+        android:padding="12dp"
         android:text="Войти"/>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_register"
-        android:layout_width="match_parent"
+        android:id="@+id/btn_toggle_mode"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Зарегистрироваться"
-        style="@style/Widget.Material3.Button.OutlinedButton"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"/>
+        android:layout_marginTop="8dp"
+        android:text="Нет аккаунта? Зарегистрироваться" />
 
+    <!-- Временная кнопка, если нужно оставить -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_next"
-        android:layout_width="match_parent"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="временная"
-        style="@style/Widget.Material3.Button.OutlinedButton"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"/>
+        android:layout_marginTop="24dp"
+        android:text="Пропустить (тест)"
+        android:alpha="0.5"/>
 
 </LinearLayout>
